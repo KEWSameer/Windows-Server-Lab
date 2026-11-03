@@ -1,12 +1,28 @@
-# 05 | Group Policy: Password, Lockout, and Workstation Controls
+# 🛡️ 05 | Group Policy: Password, Lockout, and Workstation Controls
 
 Configure domain-wide password and account lockout rules, then create linked Group Policy Objects (GPOs) that harden user sessions and workstations.
 
-## Objective
+## 🎓 What you will learn
+
+- How to set a domain password and account lockout policy
+- How to create and link Group Policy Objects to an OU
+- How to force a policy refresh with `gpupdate /force`
+- How to test that a weak password is rejected
+
+## 📋 Prerequisites
+
+- Module 03 finished (the `lab.users` OU exists)
+- Access to Group Policy Management on the domain controller
+
+## ⚡ Automation
+
+Parts 1 and 2 are scripted in [`Scripts/Set-PasswordPolicy.ps1`](../Scripts/Set-PasswordPolicy.ps1). Check the result with [`Scripts/Test-LabHealth.ps1`](../Scripts/Test-LabHealth.ps1).
+
+## 🎯 Objective
 
 Apply eight security controls and confirm that the password policy rejects a weak password.
 
-## Policies in this module
+## 🛡️ Policies in this module
 
 | Control | What it does |
 |---|---|
@@ -19,14 +35,14 @@ Apply eight security controls and confirm that the password policy rejects a wea
 | Control Panel block | Hides system settings from standard users |
 | Built-in account disable | Turns off the default Administrator and Guest accounts |
 
-## Why these controls matter
+## 💡 Why these controls matter
 
 - They stop brute-force attacks. A lockout cuts off an attacker after a few guesses.
 - They limit the damage of a leaked password. A long password is harder to crack.
 - They enforce good habits. Users must pick strong passphrases instead of `Password123`.
 - They reduce data theft, malware, and accidental misconfiguration.
 
-## Part 1: Password policy
+## 🔧 Part 1: Password policy
 
 1. Open **Group Policy Management** from the search bar or Server Manager (Tools menu).
 2. Expand **Forest > Domains > lab.local**.
@@ -44,7 +60,7 @@ Apply eight security controls and confirm that the password policy rejects a wea
 
 ![Password policy values](../screenshots/pass_req.png)
 
-## Part 2: Account lockout policy
+## 🔧 Part 2: Account lockout policy
 
 In the left pane, select **Account Lockout Policy** (below Password Policy) and apply:
 
@@ -56,7 +72,7 @@ In the left pane, select **Account Lockout Policy** (below Password Policy) and 
 
 ![Account lockout values](../screenshots/acc_lo.png)
 
-## Part 3: Force the policy update
+## 🔧 Part 3: Force the policy update
 
 Group Policy refreshes up to 90 minutes after a change. Apply it now. Open **Command Prompt as Administrator** and run:
 
@@ -71,7 +87,7 @@ Computer Policy update has completed successfully.
 User Policy update has completed successfully.
 ```
 
-## Part 4: Create linked GPOs
+## 🔧 Part 4: Create linked GPOs
 
 Link each of the following GPOs to the `lab.users` OU. For every one:
 
@@ -95,7 +111,7 @@ If the screen saver timeout does not accept a value, enable the policy first. Th
 
 ![All policies under lab.users](../screenshots/all_policy.png)
 
-## Part 5: Test the password policy
+## 🔧 Part 5: Test the password policy
 
 1. Open **Active Directory Users and Computers** and go to `lab.users`.
 2. Right-click **John Doe** and select **Reset Password**.
@@ -108,18 +124,18 @@ If the screen saver timeout does not accept a value, enable the policy first. Th
 
 ![Password accepted](../screenshots/rob_done.png)
 
-## Verification
+## ✅ Verification
 
 - `gpupdate /force` finishes without errors.
 - The weak password is rejected and the strong password is accepted.
 - Run `gpresult /r` or open **Group Policy Results** to confirm the final applied values.
 
-## Scope warnings
+## ⚠️ Scope warnings
 
 - Computer Configuration settings (UAC, USB, installer, local accounts) apply only to computer accounts inside the OU where the GPO is linked. A new domain-joined computer lands in the default `Computers` container, which this link does not cover. Move the client computer account into a dedicated OU, or link the GPO at a level that includes it.
 - Disabling the built-in Administrator account is risky. Keep a second administrative account and a recovery path before you apply it.
 - Treat these values as lab settings, not a production baseline. Test lockout, USB, and installer restrictions on a pilot group first.
 
-## Next
+## ➡️ Next
 
 [06 Client VM and testing](../06-client-vm-and-testing/README.md)

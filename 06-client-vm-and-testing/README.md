@@ -1,16 +1,28 @@
-# 06 | Windows 11 Client VM and End-to-End Testing
+# 💻 06 | Windows 11 Client VM and End-to-End Testing
 
 Build a Windows 11 Pro client, join it to `lab.local`, and test password, lockout, Group Policy, and file share permissions from a user's point of view.
 
-## Objective
+## 🎓 What you will learn
+
+- How to build a Windows 11 Pro client VM
+- How to join a client to the `lab.local` domain
+- How to test Group Policy, lockout, and share permissions as a real user
+
+## 📋 Prerequisites
+
+- Modules 02 to 05 finished
+- The server VM runs
+- The Windows 11 Pro ISO from Microsoft and 50 GB free disk space
+
+## 🎯 Objective
 
 Prove that the policies and permissions from modules 03 to 05 work on a real domain client.
 
-## Why Windows 11 Pro
+## 💻 Why Windows 11 Pro
 
 Enterprise edition is common in medium and large companies. Pro is enough for this lab and joins a domain without extra licensing steps.
 
-## Requirements
+## 📋 Requirements
 
 | Item | Value |
 |---|---|
@@ -20,7 +32,7 @@ Enterprise edition is common in medium and large companies. Pro is enough for th
 | Network | NAT, same virtual network as the server |
 | Server | Running and reachable |
 
-## Part 1: Create the VM
+## 🔧 Part 1: Create the VM
 
 1. In VMware Workstation, select **Create a New Virtual Machine** and choose **Typical**.
 2. Select **I will install the operating system later**.
@@ -30,7 +42,7 @@ Enterprise edition is common in medium and large companies. Pro is enough for th
 6. Set the disk size to 50 GB and finish the wizard.
 7. Select **Edit virtual machine settings > CD/DVD (SATA) > Use ISO image file** and browse to the Windows 11 Pro ISO.
 
-## Part 2: Install Windows 11 Pro
+## 🔧 Part 2: Install Windows 11 Pro
 
 1. Power on the VM and press any key at the boot prompt.
 2. Choose language and select **Install now**.
@@ -43,7 +55,7 @@ Enterprise edition is common in medium and large companies. Pro is enough for th
 9. Skip the email prompt, then enter a local user name, password, and security answers.
 10. Postpone updates for later.
 
-## Part 3: Connect the client to the server
+## 🔧 Part 3: Connect the client to the server
 
 1. In VMware, right-click the server VM and open **Settings > Network Adapter**. Confirm both VMs use **NAT**.
 2. On the client, press **Win + R**, type `ncpa.cpl`, and press Enter.
@@ -60,13 +72,13 @@ Replace the address with your server IP.
 
 ![Successful ping](../screenshots/ping.png)
 
-## Part 4: Join the domain
+## 🔧 Part 4: Join the domain
 
 1. Press **Win + R**, type `sysdm.cpl`, and press Enter.
 2. On the **Computer Name** tab, select **Change**.
 3. Under **Member of**, select **Domain** and enter `lab.local`.
 4. Select OK. Enter the credentials for `j.doe`.
-5. If the password fails, reset it in Active Directory Users and Computers on the server. The password policy from module 05 may reject older passwords.
+5. If the password fails, reset it in Active Directory Users and Computers on the server. The password policy from module 05 rejects older passwords.
 6. A welcome message appears. Select OK and restart the VM.
 
 ![Welcome to the domain](../screenshots/wel.png)
@@ -75,7 +87,7 @@ Replace the address with your server IP.
 
 ![Other user sign-in](../screenshots/ot.png)
 
-## Part 5: Apply Group Policy
+## 🔧 Part 5: Apply Group Policy
 
 1. On the client, open Command Prompt and run:
 
@@ -93,7 +105,7 @@ gpupdate /force
 
 ![Control Panel blocked](../screenshots/cp_block.png)
 
-## Part 6: Test the file share as John Doe
+## 🔧 Part 6: Test the file share as John Doe
 
 1. Open File Explorer and enter the share path in the address bar:
 
@@ -103,7 +115,7 @@ gpupdate /force
 
 2. The folder opens. John Doe is in the `Dev` group and has Modify access, so he reads and edits files.
 
-## Part 7: Test lockout and access denial as Sarah Davis
+## 🔧 Part 7: Test lockout and access denial as Sarah Davis
 
 1. Lock the client: **Start > Power icon > Lock**.
 2. Select **Other user**, enter `s.davis`, and type a wrong password five times. The account locks.
@@ -125,7 +137,7 @@ Sarah is not in the `Dev` group, so Windows shows a permission error.
 
 ![Access denied for Sarah](../screenshots/no_per.png)
 
-## Test summary
+## 🧪 Test summary
 
 | Test | User | Expected result |
 |---|---|---|
@@ -135,10 +147,10 @@ Sarah is not in the `Dev` group, so Windows shows a permission error.
 | Failed sign-ins | s.davis | Account locks after 5 attempts |
 | Devs share | s.davis | Access denied |
 
-## Result
+## 🏁 Result
 
 The lab covers the full path from server installation to user-level validation. You built a domain, organized identities, applied security controls, and confirmed that each control works on a domain client.
 
-## Back to the index
+## 🏠 Back to the index
 
 [Lab overview](../README.md)

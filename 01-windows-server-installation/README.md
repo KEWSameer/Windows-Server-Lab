@@ -1,12 +1,24 @@
-# 01 | Windows Server 2022 Installation
+# 🖥️ 01 | Windows Server 2022 Installation
 
 Install Windows Server 2022 with the Desktop Experience (GUI) in a VMware virtual machine. This is the base for every later module in the lab.
 
-## Objective
+## 🎓 What you will learn
+
+- How to create a virtual machine in VMware Workstation
+- How to install Windows Server 2022 with the Desktop Experience
+- How to set the Administrator password and sign in
+
+## 📋 Prerequisites
+
+- A PC with 8 GB RAM and 100 GB free disk space
+- VMware Workstation Pro or VirtualBox installed
+- The Windows Server 2022 Evaluation ISO from Microsoft
+
+## 🎯 Objective
 
 Build a working Windows Server 2022 VM that you log in to as Administrator.
 
-## Requirements
+## 📋 Requirements
 
 | Item | Value |
 |---|---|
@@ -19,7 +31,7 @@ Build a working Windows Server 2022 VM that you log in to as Administrator.
 
 VMware Workstation Pro is free for personal use, but you need to create an account to download it. VirtualBox is open source and needs no account.
 
-## Steps
+## 🛠️ Steps
 
 ### 1. Create the virtual machine
 
@@ -58,12 +70,12 @@ To change the disk size later, open the VM settings and edit the hard disk entry
 
 ![Send Ctrl+Alt+Del from the VMware menu](../screenshots/ctrl_alt_del.png)
 
-## Verification
+## ✅ Verification
 
 - The Server Manager dashboard opens after sign-in.
 - Under System Properties, the edition shows Windows Server 2022 Datacenter Evaluation.
 
-## Troubleshooting
+## 🧰 Troubleshooting
 
 | Problem | Fix |
 |---|---|
@@ -71,6 +83,6 @@ To change the disk size later, open the VM settings and edit the hard disk entry
 | ISO not detected | Open VM settings, select CD/DVD, and confirm "Connect at power on" is checked |
 | Installer shows only Server Core options | Restart the install and pick the option marked Desktop Experience |
 
-## Next
+## ➡️ Next
 
 [02 Network configuration and Active Directory](../02-network-and-active-directory/README.md)

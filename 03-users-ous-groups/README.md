@@ -1,12 +1,27 @@
-# 03 | Users, Organizational Units, and Groups
+# 👥 03 | Users, Organizational Units, and Groups
 
 Create an Organizational Unit (OU), add user accounts manually and in bulk with PowerShell, and build a security group for role-based access.
 
-## Objective
+## 🎓 What you will learn
+
+- The difference between a user, a group, and an OU
+- How to create users in the GUI and in bulk with PowerShell
+- How to build a security group for role-based access
+
+## 📋 Prerequisites
+
+- Module 02 finished
+- The `lab.local` domain controller runs
+
+## ⚡ Automation
+
+The steps in parts 1 to 4 are scripted in [`Scripts/Create-LabUsers.ps1`](../Scripts/Create-LabUsers.ps1).
+
+## 🎯 Objective
 
 Populate `lab.local` with four users in the `lab.users` OU and place two of them in a `Dev` security group.
 
-## Key terms
+## 📖 Key terms
 
 | Term | Analogy | Purpose |
 |---|---|---|
@@ -14,7 +29,7 @@ Populate `lab.local` with four users in the `lab.users` OU and place two of them
 | Group | Access keycard | A collection of users. Assign a permission to the group once instead of to each person |
 | OU (Organizational Unit) | Office room | A container that organizes users, groups, and computers. Group Policy links to OUs. An OU does not grant file access by itself |
 
-## Target state
+## 🧩 Target state
 
 | Display name | Logon name | Created by | Group |
 |---|---|---|---|
@@ -23,13 +38,13 @@ Populate `lab.local` with four users in the `lab.users` OU and place two of them
 | Sarah Davis | `s.davis` | PowerShell | none |
 | Robert Wilson | `r.wilson` | PowerShell | Dev |
 
-## Part 1: Create the OU
+## 🔧 Part 1: Create the OU
 
 1. Open **Active Directory Users and Computers**.
 2. Right-click `lab.local` and select **New > Organizational Unit**.
 3. Name it `lab.users` and select OK.
 
-## Part 2: Create a user in the GUI
+## 🔧 Part 2: Create a user in the GUI
 
 1. Right-click `lab.users` and select **New > User**.
 2. Enter first name `John`, last name `Smith`, and logon name `j.smith`. Select Next.
@@ -37,7 +52,7 @@ Populate `lab.local` with four users in the `lab.users` OU and place two of them
 4. Check **User must change password at next logon**. This lets each person choose a password they remember.
 5. Select Next, then Finish.
 
-## Part 3: Create users in bulk with PowerShell
+## 🔧 Part 3: Create users in bulk with PowerShell
 
 A CSV file plus one command creates many accounts and lets you repeat the process later by adding rows.
 
@@ -82,7 +97,7 @@ Import-Csv "C:\Users\Administrator\Desktop\users.csv" | ForEach-Object {
 
 The prompt keeps the password out of your script and your screenshots. Each account requires a password change at first sign-in.
 
-## Part 4: Create the Dev security group
+## 🔧 Part 4: Create the Dev security group
 
 1. Right-click `lab.users` and select **New > Group**.
 2. Name it `Dev`. Set **Group scope** to `Global` and **Group type** to `Security`. Select OK.
@@ -93,11 +108,11 @@ The prompt keeps the password out of your script and your screenshots. Each acco
 
 ![Dev group members](../screenshots/usr.png)
 
-## Verification
+## ✅ Verification
 
 - `lab.users` lists four user accounts and the `Dev` group.
 - The `Dev` group Members tab shows John Doe and Robert Wilson.
 
-## Next
+## ➡️ Next
 
 [04 Folder permissions](../04-folder-permissions/README.md)
